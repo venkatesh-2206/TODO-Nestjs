@@ -7,9 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { SharedModule } from 'src/common/shared/shared.module';
 import { JwtService } from '@nestjs/jwt';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports:[SharedModule,TypeOrmModule.forFeature([Bucket]),TypeOrmModule.forFeature([User])],
+  imports:[SharedModule,AuthModule, TypeOrmModule.forFeature([Bucket]),TypeOrmModule.forFeature([User])],
   controllers: [BucketController],
   providers: [BucketService,UserService,JwtService],
   exports:[BucketService]

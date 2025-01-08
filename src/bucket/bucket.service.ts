@@ -1,10 +1,11 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Bucket } from './entities/bucket.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Response } from 'src/common/interface/responsedto';
 import { SharedService } from 'src/common/shared/shared.service';
+import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
 
 
 @Injectable()
@@ -47,7 +48,7 @@ export class BucketService {
       );
     }
   }
-
+  @UseGuards(JwtAuthGuard)
   async createBucket(
     userId: number,
     bucketName: string,

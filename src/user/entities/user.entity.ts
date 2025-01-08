@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany,DeleteDateColumn } from "typeorm";
 import { Bucket } from "src/bucket/entities/bucket.entity";
-//import { Role } from "../dto/create-user.dto";
+import { Role } from "src/enum/enum";
 
 @Entity("users")
 export class User {
@@ -13,8 +13,8 @@ export class User {
   @Column({ name: "user_password" })
   password: string;
 
-  // @Column({name:'user_role',type:'enum',enum:Role})
-  // role:Role;
+  @Column({name:'user_role',type:'enum',enum:Role,default:'user'})
+  role:Role;
 
   @DeleteDateColumn({name:"deleted"})
   deletedAt: Date 

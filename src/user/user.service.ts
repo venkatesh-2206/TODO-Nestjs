@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
+//import { CreateUserDto } from './dto/create-user.dto';
 import { Response } from 'src/common/interface/responsedto';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
@@ -20,21 +20,29 @@ export class UserService {
        }
     return user;
   }
+  async findAll(){
+    const user=await this.userRepository.find();
+    return {
+      status: HttpStatus.CREATED,
+      message: 'Users Retrived successfully',
+      result:user
+    };
+  }
   async login(email:string): Promise<Response> {
 
     try {
       const user = await this.userRepository.findOne({
         where: {email}
         });
-        console.log(user);
+        //console.log(user);
 
       if (!user) {
        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
         }
-        const payload = { email: user.email, sub: user.id };
-        console.log(payload)
+        const payload = { email: user.email, sub: user.id,role:user.role };
+        //console.log(payload)
         const token = this.jwtService.sign(payload,{secret:'venkat22'});
-        console.log(token)
+        //console.log(token)
       return {
         status: HttpStatus.CREATED,
         message: 'User Retrived successfully',

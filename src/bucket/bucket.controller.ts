@@ -1,16 +1,14 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe,Query, UseGuards } from '@nestjs/common';
 import { BucketService } from './bucket.service';
 import { CreateBucketDto } from 'src/bucket/dto/create-bucket.dto';
-import { query } from 'express';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('buckets')
-//@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 export class BucketController {
   constructor(private readonly bucketService: BucketService) {}
   
   @Get(':userId')
-
   getBucketById(@Param('userId') userId: number) {
     const result = this.bucketService.getBucketById(userId);
     return result;

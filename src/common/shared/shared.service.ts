@@ -6,8 +6,8 @@ export class SharedService {
     async pagination(data:any[],page:number,limit:number):Promise<Response>{
             const totalPages:number=(data.length)/limit;
             const startCount:number=(page-1) * limit;
-            console.log(limit);
-            console.log(startCount)
+            //console.log(limit);
+            //console.log(startCount)
             const endCount:number=(startCount)+limit;
             console.log(startCount,endCount);
             const displayData:any[]= data.splice(startCount,endCount)
