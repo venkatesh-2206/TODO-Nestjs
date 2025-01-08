@@ -5,9 +5,10 @@ import { query } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('buckets')
+//@UseGuards(AuthGuard('jwt'))
 export class BucketController {
   constructor(private readonly bucketService: BucketService) {}
-  //@UseGuards(AuthGuard)
+  
   @Get(':userId')
 
   getBucketById(@Param('userId') userId: number) {
