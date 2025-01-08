@@ -20,7 +20,6 @@ export class AuthService {
     
     if(validPassword){
     const result = await this.userService.login(email);
-    
     return result;
     }
   }
